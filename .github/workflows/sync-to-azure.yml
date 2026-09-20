@@ -12,7 +12,7 @@ jobs:
 
     steps:
       # 1. GitHub Repo Code Checkout
-      - name: Checkout Code
+      - namegit commit -m "Update sync workflow trigger and repo name": Checkout Code
         uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 0 # Commit history sync karne ke liye full history download karta hai
