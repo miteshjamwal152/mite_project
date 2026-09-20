@@ -1,0 +1,35 @@
+name: "Sync GitHub to Azure Repos"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-azure:
+    name: "Sync to Azure Repos"
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. GitHub Repo Code Checkout
+      - name: Checkout Code
+        uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 0 # Commit history sync karne ke liye full history download karta hai
+
+      # 2. Push Code to Azure Repos
+      - name: Push to Azure Repos
+        env:
+          AZURE_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+        run: |
+          # Yahan apni Azure DevOps Org Name, Project Name aur Repo Name replace karein:
+          # Example: https://dev.azure.com/miteshjamwal152/mite_new_1/_git/<YOUR_REPO>
+
+          git config user.name "GitHub Action Bot"
+          git config user.email "actions@github.com"
+
+          # Azure Repos Remote URL Set Karein
+          AZURE_REPO_URL="https://miteshjamwal152:${AZURE_PAT}@dev.azure.com/miteshjamwal152/mite_new_1/_git/<YOUR_AZURE_REPO_NAME>"
+
+          git remote add azure $AZURE_REPO_URL || git remote set-url azure $AZURE_REPO_URL
+          git push azure main --force
