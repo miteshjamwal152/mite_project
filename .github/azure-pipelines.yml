@@ -1,0 +1,24 @@
+name: "Azure DevOps Terraform CI"
+
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  name: 'MY_LAPTOP_AGENT' # Aapka local laptop agent
+
+steps:
+  - checkout: self
+  - task: TerraformInstaller@1
+    inputs:
+      terraformVersion: '1.7.0'
+  - script: terraform init
+    displayName: 'Local Agent Init'
+  - script: terraform validate
+    displayName: 'Local Agent Validate'
