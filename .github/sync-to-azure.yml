@@ -21,7 +21,7 @@ jobs:
           AZURE_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
         run: |
           git config user.name "GitHub Action Bot"
-          git config user.email "actions@github.com"
+          git config user.email "miteshjamwal152@gmail.com"
 
           AZURE_REPO_URL="https://miteshjamwal152:${AZURE_PAT}@dev.azure.com/miteshjamwal152/mite_new_1/_git/pilot_1234"
 
